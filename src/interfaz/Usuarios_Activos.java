@@ -6,7 +6,6 @@
 package interfaz;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -29,7 +28,7 @@ public class Usuarios_Activos extends javax.swing.JFrame {
         initComponents();
         this.setTitle("Usuarios");
         cargarUsuarios();
-
+        
     }
 
     private void cargarUsuarios() {
@@ -45,10 +44,8 @@ public class Usuarios_Activos extends javax.swing.JFrame {
                 }
 
             };
-
             Conexion cn = new Conexion();
             Connection cnt = cn.conectar();
-
             String sql = "";
             sql = "select u.*, count(ua.id_usu_per) from usuarios u, usuario_activos ua where u.cedula = ua.id_usu_per GROUP BY ua.ID_USU_PER";
 
@@ -156,6 +153,8 @@ public class Usuarios_Activos extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    
+    
     private JTable soloAceptadas() {
         JTable tabla = new JTable();
         String[] encabezado = {"N°", "Cedula", "Nombres", "N°Activos", "Estado"};
@@ -188,8 +187,6 @@ public class Usuarios_Activos extends javax.swing.JFrame {
                     total++;
                 }
                 String estado;
-                System.out.println(total);
-                System.out.println(count);
                 if (count >= (double)total/(double)2) {
                     estado = "Urgente";
                 } else if (count >= 1) {
@@ -197,7 +194,7 @@ public class Usuarios_Activos extends javax.swing.JFrame {
                 } else {
                     estado = "Revisado";
                 }
-                String[] valores = {String.valueOf(i), model.getValueAt(i, 0).toString(),
+                String[] valores = {String.valueOf(i+1), model.getValueAt(i, 0).toString(),
                     model.getValueAt(i, 1).toString(), model.getValueAt(i, 2).toString(), estado};
 
                 aux.addRow(valores);
@@ -218,6 +215,8 @@ public class Usuarios_Activos extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    
+    
     /**
      * @param args the command line arguments
      */
